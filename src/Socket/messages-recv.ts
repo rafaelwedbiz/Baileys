@@ -8,6 +8,11 @@ import { makeChatsSocket } from "./chats"
 import { extractGroupMetadata } from "./groups"
 
 const getStatusFromReceiptType = (type: string | undefined) => {
+
+    if(type === 'played') {
+        return proto.WebMessageInfo.WebMessageInfoStatus.PLAYED;
+    }
+
     if(type === 'read' || type === 'read-self') {
         return proto.WebMessageInfo.WebMessageInfoStatus.READ
     }
