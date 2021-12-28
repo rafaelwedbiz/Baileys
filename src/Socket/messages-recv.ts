@@ -8,18 +8,15 @@ import { makeChatsSocket } from "./chats"
 import { extractGroupMetadata } from "./groups"
 
 const getStatusFromReceiptType = (type: string | undefined) => {
-
-    if(type === 'played') {
-        return proto.WebMessageInfo.WebMessageInfoStatus.PLAYED;
-    }
-
-    if(type === 'read' || type === 'read-self') {
-        return proto.WebMessageInfo.WebMessageInfoStatus.READ
-    }
-    if(typeof type === 'undefined') {
-        return proto.WebMessageInfo.WebMessageInfoStatus.DELIVERY_ACK
-    }
-    return undefined
+	switch(type) {
+		case 'played':
+			return proto.WebMessageInfo.WebMessageInfoStatus.PLAYED
+		case 'read':
+		case 'read-self':
+			return proto.WebMessageInfo.WebMessageInfoStatus.READ
+		default:
+			break
+	}
 }
 
 export const makeMessagesRecvSocket = (config: SocketConfig) => {
